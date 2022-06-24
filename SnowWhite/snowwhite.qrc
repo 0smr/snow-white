@@ -1,0 +1,26 @@
+<RCC>
+    <qresource prefix="/SnowWhite">
+        <file>base/DashedRing.qml</file>
+        <file>Button.qml</file>
+        <file>CheckBox.qml</file>
+        <file>Label.qml</file>
+        <file>SnowWhite.qml</file>
+        <file>ProgressBar.qml</file>
+        <file>RadioButton.qml</file>
+        <file>RangeSlider.qml</file>
+        <file>Slider.qml</file>
+        <file>SpinBox.qml</file>
+        <file>Switch.qml</file>
+        <file>TextArea.qml</file>
+        <file>TextField.qml</file>
+        <file>Tumbler.qml</file>
+        <file>BusyIndicator.qml</file>
+        <file>SplitView.qml</file>
+        <file>Frame.qml</file>
+        <file>Dial.qml</file>
+        <file>ComboBox.qml</file>
+        <file>StackView.qml</file>
+        <file>qmldir</file>
+        <file>script.js</file>
+    </qresource>
+</RCC>
