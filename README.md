@@ -1,4 +1,4 @@
-# QML SnowWhite (soft UI) QtQuick style.
+# QML SnowWhite.
 
 <img src="https://img.shields.io/badge/version-1.0.0-37c248"><br>
 
