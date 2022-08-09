@@ -57,7 +57,6 @@ If you are confused, please refer to [example-1](example/example-1/) for a clear
 - [x] Button
 - [x] Radio Button
 - [x] CheckBox
-- [x] AdvancedRectangle
 - [x] Slider
 - [x] TextArea
 - [x] TextField
@@ -66,7 +65,6 @@ If you are confused, please refer to [example-1](example/example-1/) for a clear
 - [x] Switch
 - [x] RangeSlider
 - [x] SpinBox
-- [x] HorizontalSeparator
 - [x] Tumbler
 - [x] Dial
 - [x] BusyIndicator
@@ -82,7 +80,7 @@ Please file an issue on [issues page](https://github.com/SMR76/qml-snow-white/is
 
 ## Documentation
 
-no document provided yet.
+[Documentation](docs/README.md) can be found in the `docs` directory.
 
 ## Donation
 

@@ -6,18 +6,20 @@ pragma Singleton
 import QtQuick 2.15
 
 QtObject {
-    property color color: '#f5f5f5';
-    property color accent: '#7DC4FF';
-    property real radiusPrecent: 0.25
-    property real radius: 3
+    /**
+      *
+      */
+    function blend(color1, color2) {
+        let color = color1;
+        color.r = (color1.r + color2.r) / 2;
+        color.g = (color1.g + color2.g) / 2;
+        color.b = (color1.b + color2.b) / 2;
+        color.b = (color1.a + color2.a) / 2;
+        return color;
+    }
 
-    function blend(color1, color2, alpha) {
-        var color = color1;
-        color.r = (color.r + color2.r) / 2;
-        color.g = (color.g + color2.g) / 2;
-        color.b = (color.b + color2.b) / 2;
+    function setAlpha(color, alpha) {
         color.a = alpha;
-
         return color;
     }
 

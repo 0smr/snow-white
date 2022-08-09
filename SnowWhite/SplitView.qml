@@ -12,17 +12,9 @@ T.SplitView {
     implicitHeight: Math.max(implicitBackgroundHeight + topInset + bottomInset,
                              implicitContentHeight + topPadding + bottomPadding)
 
-    handle: RoundedOutEffect {
-        implicitWidth: control.orientation === Qt.Horizontal ? 6 : control.width
-        implicitHeight: control.orientation === Qt.Horizontal ? control.height : 6
-        color: control.palette.button
-
-        shadow {
-            distance: 0.01
-            radius: 10; offset: 2.5;
-            spread: 1; angle: 90;
-            color1: Qt.lighter(color, 1.5)
-            color2: Qt.darker(color, 1.3)
-        }
+    handle: Rectangle {
+        implicitWidth: control.orientation === Qt.Horizontal ? 4 : control.width
+        implicitHeight: control.orientation === Qt.Horizontal ? control.height : 4
+        color: control.enabled ? control.palette.button : '#aaa'
     }
 }
