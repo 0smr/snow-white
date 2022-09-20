@@ -8,8 +8,8 @@ import SnowWhite 1.0
 ApplicationWindow {
     id: window
 
-    width: toggleButton.checked ? 630 : 220
-    height: 350
+    width: toggleButton.checked ? scrollView.contentWidth : 230
+    height: 420
     visible: true
 
     palette {
@@ -26,7 +26,7 @@ ApplicationWindow {
     }
 
     component ButtonColor: Button {
-        width: 15; height: width
+        width: 20; height: width
         onClicked: {
             window.palette.base = palette.button
             window.palette.button = palette.button
@@ -35,7 +35,7 @@ ApplicationWindow {
     }
 
     component BackColor: Button {
-        width: 15; height: width
+        width: 20; height: width
         onClicked: {
             window.palette.window = palette.button
             window.palette.windowText = palette.buttonText
@@ -48,8 +48,10 @@ ApplicationWindow {
     }
 
     Settings {
+        id: settings
         fileName: 'config.conf'
         property alias toggleButton: toggleButton.checked
+        property real xScroll: scrollView.xScroll
     }
 
     Row {
@@ -64,21 +66,28 @@ ApplicationWindow {
                 color: palette.button
             }
         }
-        ButtonColor { palette.button: '#48abff'; text: '-' }
-        ButtonColor { palette.button: '#ef476f'; text: '-' }
-        ButtonColor { palette.button: '#ffd166'; text: '-' }
-        ButtonColor { palette.button: '#06d6a0'; text: '-' }
-        ButtonColor { palette.button: '#118ab2'; text: '-' }
-        ButtonColor { palette.button: '#343536'; text: '-' }
-        Item { width: 10; height: 1 }
-        BackColor { palette {button: '#f5f6f7'; buttonText: '#343536'} text: '-' }
-        BackColor { palette {button: '#343536'; buttonText: '#f5f6f7'} text: '-' }
+        ButtonColor { palette.button: '#48abff'; text: '.' }
+        ButtonColor { palette.button: '#ef476f'; text: '.' }
+        ButtonColor { palette.button: '#ffd166'; text: '.' }
+        ButtonColor { palette.button: '#06d6a0'; text: '.' }
+        ButtonColor { palette.button: '#d5b9ff'; text: '.' }
+        ButtonColor { palette.button: '#343536'; text: '.' }
+        ButtonColor { palette.button: '#edc9aa'; text: '.' }
+        Rectangle { color: window.palette.windowText ;width: 1; height: parent.height }
+        BackColor { palette {button: '#f5f6f7'; buttonText: '#343536'} text: '.' }
+        BackColor { palette {button: '#343536'; buttonText: '#f5f6f7'} text: '.' }
+        BackColor { palette {button: '#1d1c21'; buttonText: '#ffffff'} text: '.' }
     }
 
     ScrollView {
+        id: scrollView
+
+        property real xScroll: ScrollBar.horizontal.position
+        Component.onCompleted: ScrollBar.horizontal.position = settings.xScroll
+
         anchors.fill: parent
 
-        contentWidth: 630
+        contentWidth: 690
         contentHeight: height
 
         Grid {
@@ -98,30 +107,40 @@ ApplicationWindow {
                         columns: 3
                         spacing: 10
                         Button {
+                            width: 55
+                            height: width
                             text: "Color\npicker"
                             font.family: carlito.name
                             onClicked: colorPickerW.visible = true
                         }
 
                         Button {
+                            width: 55
+                            height: width
                             text: "HL\nBtn"
                             highlighted: true
                             font { family: carlito.name; weight: Font.Medium; }
                         }
 
                         Button {
+                            width: 55
+                            height: width
                             text: "Check\nBtn"
                             checkable: true
                             font.family: carlito.name
                         }
 
                         Button {
+                            width: 55
+                            height: width
                             text: "Flat Btn"
                             flat: true
                             font.family: carlito.name
                         }
 
                         Button {
+                            width: 40
+                            height: width
                             text: "Disabled\nBtn"
                             enabled: false
                             font.family: carlito.name
@@ -135,6 +154,15 @@ ApplicationWindow {
                             font.family: carlito.name
                         }
                     }
+                }
+
+                Button {
+                    width: parent.width
+                    height: 45
+                    text: "Wide Checkable Button"
+                    checkable: true
+                    font.family: carlito.name
+                    radius: 10
                 }
 
                 Row {
@@ -174,15 +202,6 @@ ApplicationWindow {
                     }
 
                     Rectangle {
-                        Button {
-                            id: busyEnable
-                            x: 5; y: 5
-                            checkable: true
-                            flat: true
-                            width: 15
-                            height: 15
-                        }
-
                         width: 85; height: 85
                         color: 'transparent'
                         radius: 6
@@ -191,7 +210,15 @@ ApplicationWindow {
 
                         BusyIndicator {
                             anchors.centerIn: parent
-                            running: busyEnable.checked
+                            width: 30
+                            height: 30
+                            running: false
+                            visible: true
+
+                            MouseArea {
+                                anchors.fill: parent
+                                onClicked: parent.running ^= true
+                            }
                         }
                     }
                 }
@@ -224,6 +251,7 @@ ApplicationWindow {
 
                 SpinBox {
                     font.family: carlito.name
+                    to: 10
                 }
 
                 Column {
@@ -254,24 +282,47 @@ ApplicationWindow {
                 Text {
                     width: parent.width
                     text: "Dial"
-                    color: window.palette.text
+                    color: window.palette.windowText
                     horizontalAlignment: Text.AlignHCenter
                     font.family: carlito.name
                 }
 
                 Dial {
+                    x: (parent.width - width)/2
                     width: 100
                     height: 100
                 }
 
+                Text {
+                    topPadding: 10
+                    width: parent.width
+                    horizontalAlignment: Text.AlignHCenter
+
+                    text: "Tumbler"
+                    color: window.palette.windowText
+                    font.family: carlito.name
+                }
+
                 Tumbler {
-                    model: 10
+                    x: (parent.width - width)/2
+                    model: 40
                     height: 75
                     visibleItemCount: 3
                 }
 
+                Text {
+                    topPadding: 10
+                    width: parent.width
+                    horizontalAlignment: Text.AlignHCenter
+                    text: "ComboBox"
+                    color: window.palette.windowText
+                    font.family: carlito.name
+                }
+
+
                 ComboBox {
-                    model: 2
+                    id: comboBox
+                    model: 5
                     editable: true
                 }
             }
@@ -289,7 +340,8 @@ ApplicationWindow {
                 window.palette.buttonText = selectedColor.hslLightness < 0.7 ? '#fff' : '#333'
             }
         }
-        title: ''; flags: Qt.Tool
+        title: ''
+        flags: Qt.Tool
         minimumWidth: colorPicker.width
         minimumHeight:  200
     }

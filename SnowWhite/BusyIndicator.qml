@@ -1,7 +1,3 @@
-// Copyright (C) 2022 smr.
-// SPDX-License-Identifier: LGPL-3.0-only
-// http://s-m-r.ir
-
 import QtQuick 2.15
 import QtQuick.Templates 2.15 as T
 
@@ -9,68 +5,44 @@ T.BusyIndicator {
     id: control
 
     implicitWidth: Math.max(implicitBackgroundWidth + leftInset + rightInset,
-                            implicitContentWidth + leftPadding + rightPadding)
+                                implicitContentWidth + leftPadding + rightPadding)
     implicitHeight: Math.max(implicitBackgroundHeight + topInset + bottomInset,
                              implicitContentHeight + topPadding + bottomPadding)
 
-    padding: 6
+    visible: running
     running: false
+    padding: 6
 
-    component RSemiCircle : Item {
-        property real borderWidth: 2
-        property real speed: 1
+    contentItem: ShaderEffect {
+        id: effect
+
+        property real strokeWidth: 0.06
+        property real sweepAngle: .5
         property color color: control.palette.button
 
-        x: (parent.width - width)/2
-        y: (parent.height - height)/2
+        fragmentShader: "
+            varying highp vec2 qt_TexCoord0;
+            uniform highp float qt_Opacity;
+            uniform highp float sweepAngle;
+            uniform highp float strokeWidth;
+            uniform highp float width;
+            uniform highp vec4 color;
 
-        width: 10
-        height: width
-
-        Item {
-            width: parent.width/2
-            height: parent.width
-            clip: true
-
-            Rectangle {
-                width: parent.height; height: width
-                radius: width
-                color: 'transparent'
-                border.width: borderWidth
-                border.color: parent.parent.color
-            }
-        }
-
-        NumberAnimation on rotation {
-            running: control.running
-            from: speed < 0 ? 360 : 0
-            to: speed < 0 ? 0 : 360
-            duration: 4000/Math.max(1, Math.abs(speed))
-            loops: NumberAnimation.Infinite
-        }
+            void main() {
+                highp vec2 coord = qt_TexCoord0 - vec2(0.5);
+                highp float ring = smoothstep(0.0, 0.5/width, -abs(length(coord) - 0.5 + strokeWidth) + strokeWidth);
+                gl_FragColor = color * ring;
+                gl_FragColor *= smoothstep(0.0, 0.5/width, -atan(coord.x, coord.y) / 6.2831 - 0.48 + sweepAngle);
+            }"
     }
 
-    contentItem: Item {
-        implicitWidth: 25
-        implicitHeight: 25
-
-        RSemiCircle {
-            width: parent.width
-            speed: 1
+    Timer {
+        property real seed: 0
+        running: control.running
+        repeat: true; interval: 25 // Almost 40Hz
+        onTriggered: {
+            effect.rotation += 8
+            effect.sweepAngle = 0.5 + Math.sin(seed+=0.05) / 3
         }
-
-        RSemiCircle {
-            width: parent.width - 5
-            speed: -4
-            color: control.palette.highlight
-        }
-
-        RSemiCircle {
-            width: parent.width - 10
-            speed: 16
-        }
-
-        width: control.width
-        height: control.height
     }
 }

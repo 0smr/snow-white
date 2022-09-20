@@ -1,6 +1,6 @@
 # QML SnowWhite.
 
-<img src="https://img.shields.io/badge/version-1.0.0-37c248"><br>
+<img src="https://img.shields.io/badge/version-1.0.2-37c248"><br>
 
 **Snow White** QtQuick2 theme.<br>
 *Tired of the same UI for QtQuick2?* Here is my own UI for the most common components, which you can simply utilize.<br>

@@ -15,6 +15,8 @@ T.Button {
     implicitHeight: Math.max(implicitBackgroundHeight + topInset + bottomInset,
                                 implicitContentHeight + topPadding + bottomPadding)
 
+    property alias radius: background.radius
+
     padding: 6
     spacing: 6
 
@@ -57,6 +59,7 @@ T.Button {
     }
 
     background: Rectangle {
+        id: background
         visible: control.enabled
 
         implicitWidth: 45
@@ -80,8 +83,7 @@ T.Button {
         Rectangle {
             x: (parent.width - width)/2
             y: (parent.height - height)/2
-            height: width
-            radius: width * 0.2
+            radius: parent.radius - 0.05
             visible: control.checked
             color: 'transparent'
             border {
@@ -92,7 +94,13 @@ T.Button {
             NumberAnimation on width {
                 running: control.checked
                 from: control.background.width
-                to: control.background.width * 0.85
+                to: control.background.width - 5
+            }
+
+            NumberAnimation on height {
+                running: control.checked
+                from: control.background.height
+                to: control.background.height - 5
             }
         }
     }

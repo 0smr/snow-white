@@ -9,6 +9,7 @@ On [doc.qt.io](https://doc.qt.io/qt-6/qtquick-controls2-qmlmodule.html), you can
 - [Components](#components)
   + **base**
     * [DashedRing](#dashed-ring) `[base]`
+  + [Button](#dial)
   + [Dial](#dial)
   + [ProgressBar](#progressbar)
   + [SnowWhite](#snowwhite) `[singleton]`
@@ -62,6 +63,12 @@ DashedRing {
     palette.base: 'blue'
 }
 ```
+----
+### Button
+#### Component properties:
+##### `[property]` `[real]` radius
+This property determines the radius of background.
+
 ----
 ### Dial
 #### Component properties:

@@ -67,6 +67,6 @@ T.Switch {
         verticalAlignment: Text.AlignVCenter
         text: control.text
         font: control.font
-        color: control.palette.text
+        color: control.palette.windowText
     }
 }

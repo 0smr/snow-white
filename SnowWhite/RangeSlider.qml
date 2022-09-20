@@ -15,10 +15,13 @@ T.RangeSlider {
     implicitHeight: Math.max(implicitBackgroundHeight + topInset + bottomInset,
                              first.implicitHandleHeight + topPadding + bottomPadding,
                              second.implicitHandleHeight + topPadding + bottomPadding)
-
     padding: 6
 
     component Handler: Rectangle {
+        property real vpos: 0
+        x: control.leftPadding + (control.horizontal ? vpos * (control.availableWidth - width) : (control.availableWidth - width) / 2)
+        y: control.topPadding + (!control.horizontal ? vpos * (control.availableHeight - height) : (control.availableHeight - height) / 2)
+
         implicitWidth: 20
         implicitHeight: 20
 
@@ -30,37 +33,28 @@ T.RangeSlider {
     }
 
     first.handle: Handler {
-        x: control.leftPadding + (control.horizontal ? control.first.visualPosition * (control.availableWidth - width) : (control.availableWidth - width) / 2)
-        y: control.topPadding + (control.horizontal ? (control.availableHeight - height) / 2 : control.first.visualPosition * (control.availableHeight - height))
-
+        vpos: control.first.visualPosition
         color: control.first.pressed ? Qt.lighter(control.palette.button, 1.1) : control.palette.button
         border.color: activeFocus ? control.palette.highlight : control.palette.window
     }
 
     second.handle: Handler {
-        x: control.leftPadding + (control.horizontal ? control.second.visualPosition * (control.availableWidth - width) : (control.availableWidth - width) / 2)
-        y: control.topPadding + (control.horizontal ? (control.availableHeight - height) / 2 : control.second.visualPosition * (control.availableHeight - height))
-
+        vpos: control.second.visualPosition
         color: control.second.pressed ? Qt.lighter(control.palette.button, 1.1) : control.palette.button
         border.color: activeFocus ? control.palette.highlight : control.palette.window
-    }
-
-    second.onPressedChanged: {
-        second.handle.focus = true
     }
 
     background: Rectangle {
         x: (control.width - width) / 2
         y: (control.height - height) / 2
 
-        implicitWidth:  control.horizontal ? 200 : 2
-        implicitHeight: control.horizontal ? 2 : 200
+        implicitWidth: !control.vertical ? 200 : 2
+        implicitHeight: control.vertical ? 200 : 2
 
-        color: control.palette.button
+        width: !control.vertical ? control.availableWidth : implicitWidth
+        height: control.vertical ? control.availableHeight : implicitHeight
 
         radius: width
-
-        width: control.horizontal ? control.availableWidth : implicitWidth
-        height: control.horizontal ? implicitHeight : control.availableHeight
+        color: control.palette.button
     }
 }
