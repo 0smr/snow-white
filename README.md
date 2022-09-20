@@ -16,10 +16,9 @@ You may also swap and change between color variations; the implementation is wel
 </div>
 
 ## How to use
-
-### Attention!
-
-This component has only been tested on _Qt version 5.15.2_ and _Windows OS_ at _3840x2160 resolution_ with a _scaling factor of 250 percent_; USAGE OF THIS COMPONENT CARRIES NO **_WARRANTY_**.
+> **Warning**
+>
+> This component has only been tested on **Qt version 5.15.2** and *Windows OS* at *3840x2160 resolution* with a *scaling factor of 250 percent*; ***USAGE OF THIS COMPONENT CARRIES NO WARRANTY***.<br>&nbsp;
 
 ### Usage
 
@@ -67,7 +66,7 @@ If you are confused, please refer to [example-1](example/example-1/) for a clear
 - [x] SpinBox
 - [x] Tumbler
 - [x] Dial
-- [x] BusyIndicator
+- [x] BusyIndicator <sub>*(updated)*</sub>
 - [x] SplitView
 - [x] StackView
 - [x] ComboBox
